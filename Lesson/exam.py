@@ -12,7 +12,7 @@ def hello():
 def show_name(name1, name2):
     return "<h1>こんにちは{}さん、{}さん</h1>".format(name1, name2)
 
-@app.route("/add/<int:num1>/<int:add2>")
+@app.route("/add/<int:num1>/<int:num2>")
 def add_number(num1, num2):
     return "<h1>{}</h1>".format(num1 + num2)
 
