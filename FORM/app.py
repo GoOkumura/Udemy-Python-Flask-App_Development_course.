@@ -5,6 +5,17 @@ import os
 
 app = Flask(__name__)
 
+class kakasi:
+
+    kakasi = pykakasi.kakasi()
+    kakasi.setMode("H", "a")
+    kakasi.setMode("K", "a")
+    kakasi.setMode("J", "a")
+    conv = kakasi.getConverter()
+
+    @classmethod
+    def japanese_to_ascii(cls, japanese):
+        return cls.conv.do(japanese)
 
 class UserInfo:
 
@@ -46,9 +57,10 @@ def upload():
     if request.method == "GET":
         return render_template('upload.html')
     elif request.method == "POST":
-        file = request.files['file']
-        save_filename = secure_filename(file.filename)
-        file.save(os.path.join("./static/image", save_filename))
+        file = request.files["file"]
+        ascii_filename = kakasi.japanese_to_ascii(file.filename)
+        save_filename = secure_filename(ascii_filename)
+        file.save(os.path.join("/Users/gookumura/workspaces/udemy/Python/Python-Flask-App_Development_course./FORM/static/image", save_filename))
         return redirect(url_for("uploaded_file", filename = save_filename))
 
 @app.route("/uploaded_file/<string:filename>")
